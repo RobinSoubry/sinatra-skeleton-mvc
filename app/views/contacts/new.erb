@@ -3,17 +3,17 @@
 <form action="/contacts" method="post">
   <div>
     <label for="contact_first_name">First Name</label>
-    <input id="contact_first_name" type="text" name="first_name">
+    <input id="contact_first_name" type="text" name="contact[first_name]">
   </div>
     <div>
     <label for="contact_last_name">Last Name</label>
-    <input id="contact_last_name" type="text" name="last_name">
+    <input id="contact_last_name" type="text" name="contact[last_name]">
   </div>
     <div>
     <label for="contact_email">Email</label>
-    <input id="contact_email" type="text" name="email">
+    <input id="contact_email" type="text" name="contact[email]">
   </div>
-    <div>
+  <div>
     <input name="commit" type="submit" value="Create Contact">
   </div>
 </form>

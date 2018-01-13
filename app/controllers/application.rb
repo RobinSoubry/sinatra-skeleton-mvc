@@ -17,7 +17,9 @@ end
 
 # create
 post '/contacts' do
-  'This is the contacts create action'
+  puts params
+  @contact = Contact.create(params[:contact]) #ActiveRecord expects key-value pairs so it will understand the hash
+  redirect '/contacts'
 end
 
 # show
