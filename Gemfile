@@ -1,25 +1,27 @@
-# A sample Gemfile
-source "https://rubygems.org"
+source 'https://rubygems.org'
 
-gem 'rake'
-gem 'activesupport'
+# PostgreSQL driver
+gem 'pg'
 
+# Sinatra driver
 gem 'sinatra'
 gem 'sinatra-contrib'
-gem 'sinatra-activerecord'
 
-gem 'puma'
-gem 'tux'
+gem 'activesupport', '~>4.2.0'
+gem 'activerecord', '~>4.2.0'
 
-# These gems are only installed when run as `bundle install --without production`
-group :development, :test do
-  gem 'pry'
-  gem 'shotgun'
-  gem 'sqlite3'
+gem 'rake'
+
+gem 'shotgun'
+
+group :test do
+  gem 'shoulda-matchers'
+  gem 'rack-test'
+  gem 'rspec', '~>3.0'
+  gem 'capybara'
 end
 
-# bundle install --without test --without development
-group :production do
-  # use postgres in production, or move outside a group if your app uses postgres for development and production 
-  gem 'pg'
+group :test, :development do
+  gem 'factory_girl'
+  gem 'faker'
 end
