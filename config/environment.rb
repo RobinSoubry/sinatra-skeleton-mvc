@@ -1,39 +1,45 @@
+# Set up gems listed in the Gemfile.
+# See: http://gembundler.com/bundler_setup.html
+#      http://stackoverflow.com/questions/7243486/why-do-you-need-require-bundler-setup
+ENV['BUNDLE_GEMFILE'] ||= File.expand_path('../../Gemfile', __FILE__)
+
+require 'bundler/setup' if File.exists?(ENV['BUNDLE_GEMFILE'])
+
+# Require gems we care about
 require 'rubygems'
-require 'bundler/setup'
 
-require 'active_support/all'
+require 'uri'
+require 'pathname'
 
-# Load Sinatra Framework (with AR)
+require 'pg'
+require 'active_record'
+require 'logger'
+
 require 'sinatra'
-require 'sinatra/activerecord'
-require 'sinatra/contrib/all' # Requires cookies, among other things
+require "sinatra/reloader" if development?
 
+require 'erb'
+
+# Some helper constants for path-centric logic
 APP_ROOT = Pathname.new(File.expand_path('../../', __FILE__))
+
 APP_NAME = APP_ROOT.basename.to_s
 
-# Global Sinatra configuration
 configure do
+  # By default, Sinatra assumes that the root is the file that calls the configure block.
+  # Since this is not the case for us, we set it manually.
   set :root, APP_ROOT.to_path
-  set :server, :puma
-
+  # See: http://www.sinatrarb.com/faq.html#sessions
   enable :sessions
-  set :session_secret, ENV['SESSION_KEY'] || 'lighthouselabssecret'
+  set :session_secret, ENV['SESSION_SECRET'] || 'this is a secret shhhhh'
 
+  # Set the views to
   set :views, File.join(Sinatra::Application.root, "app", "views")
 end
 
-# Development and Test Sinatra Configuration
-configure :development, :test do
-  require 'pry'
-end
-
-# Production Sinatra Configuration
-configure :production do
-  # NOOP
-end
+# Set up the controllers and helpers
+Dir[APP_ROOT.join('app', 'controllers', '*.rb')].each { |file| require file }
+Dir[APP_ROOT.join('app', 'helpers', '*.rb')].each { |file| require file }
 
 # Set up the database and models
 require APP_ROOT.join('config', 'database')
-
-# Load the routes / actions
-require APP_ROOT.join('app', 'actions')
