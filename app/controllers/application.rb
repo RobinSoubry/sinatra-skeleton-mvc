@@ -12,6 +12,7 @@ end
 
 # new
 get '/contacts/new' do
+  @contact = Contact.new
   erb :'contacts/new'
 end
 
@@ -24,19 +25,21 @@ end
 
 # show
 get '/contacts/:id' do
-  puts params
   @contact = Contact.find(params[:id])
   erb :'contacts/show'
 end
 
 # edit
 get '/contacts/:id/edit' do
-  'This is the contacts edit action'
+  @contact = Contact.find(params[:id])
+  erb :'contacts/edit'
 end
 
 # update
 patch '/contacts/:id' do
-  'This is the contacts update action'
+  @contact = Contact.find(params[:id])
+  @contact.update(params[:contact])
+  redirect "contacts/#{@contact.id}"
 end
 
 put '/contacts/:id ' do
