@@ -7,8 +7,9 @@ gem 'pg'
 gem 'sinatra'
 gem 'sinatra-contrib'
 
-gem 'activesupport', '~>4.2.0'
-gem 'activerecord', '~>4.2.0'
+gem 'activesupport', '~>5.1.4'
+gem 'activerecord', '~>5.1.4'
+gem 'nokogiri', '~>1.8.1'
 
 gem 'rake'
 
@@ -17,6 +18,7 @@ gem 'shotgun'
 group :test do
   gem 'shoulda-matchers'
   gem 'rack-test'
+  gem 'rack', '~>2.0.3'
   gem 'rspec', '~>3.0'
   gem 'capybara'
 end
