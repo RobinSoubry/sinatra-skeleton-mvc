@@ -1,4 +1,4 @@
-
+require 'faker'
 Faker::Name.first_name       #=> "Kaci"
 Faker::Name.last_name        #=> "Ernser"
 Faker::Internet.safe_email('Nancy') #=> "nancy@example.net"
