@@ -35,15 +35,19 @@ get '/contacts/:id/edit' do
   erb :'contacts/edit'
 end
 
-# update
-patch '/contacts/:id' do
+def update_contact
   @contact = Contact.find(params[:id])
   @contact.update(params[:contact])
   redirect "contacts/#{@contact.id}"
 end
 
+# update
+patch '/contacts/:id' do
+  update_contact
+end
+
 put '/contacts/:id ' do
-  'This is the contacts update action'
+  update_contact
 end
 
 # delete
