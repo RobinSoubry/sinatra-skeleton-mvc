@@ -12,7 +12,7 @@ end
 
 # new
 get '/contacts/new' do
-  'This is the contacts new action'
+  erb :'contacts/new'
 end
 
 # create
