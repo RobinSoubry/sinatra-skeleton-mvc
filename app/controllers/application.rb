@@ -1,12 +1,13 @@
 get '/' do
-  "Hello World!"
+  "Hello World"
 end
 
 # CONTACTS RESTful actions
 
 # index
 get '/contacts' do
-  'This is the contacts index action'
+  @contacts = Contact.all
+  @contacts.map{|contact| contact.email}.to_s
 end
 
 # new
@@ -21,7 +22,9 @@ end
 
 # show
 get '/contacts/:id' do
-  'This is the contacts show action'
+  puts params
+  @contact = Contact.find(params[:id])
+  @contact.email
 end
 
 # edit
